@@ -1,17 +1,12 @@
 import './App.css';
-import Content from './components/Content';
-import Footer from './components/Footer';
-import Header from './components/Header';
+import Section from './components/Section';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
-    <>
-      <section className="todoapp">
-        <Header />
-        <Content />
-      </section>
-      <Footer />
-    </>
+    <ThemeProvider>
+      <Section />
+    </ThemeProvider>
   );
 }
 

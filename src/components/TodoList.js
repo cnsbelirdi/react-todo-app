@@ -17,7 +17,7 @@ function TodoList() {
     <ul className="todo-list">
         {
             filteredTodos.map((item) => (
-                <li key={item.id} className={item.completed && 'completed'}>
+                <li key={item.id} className={item.completed ? 'completed' : ''}>
                     <div className="view">
                         <input 
                             className="toggle" 
