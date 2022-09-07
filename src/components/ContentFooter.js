@@ -22,21 +22,21 @@ function ContentFooter() {
 			<li>
 				<a 
 					href="#/" 
-					className={activeFilter === 'all' && 'selected'}
+					className={activeFilter === 'all' ? 'selected' : ''}
 					onClick={() => dispatch(changeActiveFilter('all'))}
 				>All</a>
 			</li>
 			<li>
 				<a 
 					href="#/" 
-					className={activeFilter === 'active' && 'selected'}
+					className={activeFilter === 'active' ? 'selected' : ''}
 					onClick={() => dispatch(changeActiveFilter('active'))}
 				>Active</a>
 			</li>
 			<li>
 				<a 
 					href="#/" 
-					className={activeFilter === 'completed' && 'selected'}
+					className={activeFilter === 'completed' ? 'selected' : ''}
 					onClick={() => dispatch(changeActiveFilter('completed'))}
 				>Completed</a>
 			</li>
