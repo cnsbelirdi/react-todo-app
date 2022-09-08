@@ -17,13 +17,22 @@ export const destroyTodoAsync = createAsyncThunk('todos/destroyTodoAsync', async
     return id;
 });
 
+export const clearCompletedTodoAsync = createAsyncThunk('todos/clearCompletedTodoAsync', async() => {
+    const res = await axios("https://631903916b4c78d91b347aa9.mockapi.io/todos");
+    const filtered = res.data.filter((item) => item.isCompleted !== false);
+    filtered.forEach(element => {
+        axios.delete(`https://631903916b4c78d91b347aa9.mockapi.io/todos/${element.id}`);
+    });
+    return res.data;
+});
+
 export const todosSlice = createSlice({
     name: 'todos',
     initialState: {
         items: [],
         isLoading: false,
         error: null,
-        activeFilter: 'all',
+        activeFilter: localStorage.getItem("activeFilter"),
     },
     reducers: {
         toggle: (state, action) => {
@@ -61,7 +70,13 @@ export const todosSlice = createSlice({
             const id = action.payload;
             const index = state.items.findIndex((item) => item.id === id);
             state.items.splice(index, 1); 
-        }
+        },
+        // clear completed
+        [clearCompletedTodoAsync.fulfilled]: (state, action) => {
+            // state.items = action.payload;
+            const filtered = state.items.filter((item) => item.isCompleted === false);
+            state.items = filtered;
+        },
 
     }
 });
