@@ -1,12 +1,12 @@
 import './App.css';
 import Section from './components/Section';
-import { ThemeProvider } from './context/ThemeContext';
+import { ContextProvider } from './context/Context';
 
 function App() {
   return (
-    <ThemeProvider>
+    <ContextProvider>
       <Section />
-    </ThemeProvider>
+    </ContextProvider>
   );
 }
 
