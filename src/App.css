@@ -53,3 +53,30 @@
   top: 0;
   left: 0;
 }
+
+/* USERNAME */
+.user-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  row-gap: 10px;
+}
+.user-container > input {
+  width: 300px;
+  padding: 8px;
+  font-size: 16px;
+  border:1px solid #222;
+  border-radius: 4px;
+}
+.user-container > button {
+  width: 318px;
+  padding: 6px;
+  font-size: 18px;
+  border: 1px solid #222;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: cornflowerblue;
+  color:#ffd
+}

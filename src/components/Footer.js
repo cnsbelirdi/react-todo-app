@@ -8,6 +8,7 @@ function Footer() {
 
   return (
     <footer className="info">
+        <p style={{ fontSize: 12}}>Active user : {localStorage.getItem("username")}</p>
         <div className="theme-icon">
           <button type="button" className={`${t}-theme`} onClick={() => setTheme(t)}>
             <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50">
@@ -15,8 +16,8 @@ function Footer() {
             </svg>
             {t.charAt(0).toUpperCase() + t.slice(1)} Theme
           </button>
-          
         </div>
+        
         <p>Created by <a href="https://github.com/cnsbelirdi">cnsbelirdi</a></p>
     </footer>
   )
