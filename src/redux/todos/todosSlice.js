@@ -12,9 +12,13 @@ export const addTodoAsync = createAsyncThunk('todos/addTodoAsync', async(data) =
 });
 
 export const destroyTodoAsync = createAsyncThunk('todos/destroyTodoAsync', async(id) => {
-    console.log(id);
     await axios.delete(`https://631903916b4c78d91b347aa9.mockapi.io/todos/${id}`);
     return id;
+});
+
+export const toggleTodoAsync = createAsyncThunk('todos/toggleTodoAsync', async({id, data}) => {
+    const res = await axios.put(`https://631903916b4c78d91b347aa9.mockapi.io/todos/${id}`, data);
+    return res.data;
 });
 
 export const clearCompletedTodoAsync = createAsyncThunk('todos/clearCompletedTodoAsync', async() => {
@@ -35,18 +39,9 @@ export const todosSlice = createSlice({
         activeFilter: localStorage.getItem("activeFilter"),
     },
     reducers: {
-        toggle: (state, action) => {
-            const {id} = action.payload;
-            const item = state.items.find(item => item.id === id);
-            item.isCompleted = !item.isCompleted;
-        },
         changeActiveFilter: (state, action) => {
             state.activeFilter = action.payload;
-        },
-        clearCompleted: (state) => {
-            const filtered = state.items.filter((item) => item.isCompleted === false);
-            state.items = filtered;
-        },
+        }
     },
     extraReducers: {
         // get Todos
@@ -64,6 +59,12 @@ export const todosSlice = createSlice({
         // add Todo
         [addTodoAsync.fulfilled]: (state, action) => {
             state.items.push(action.payload);
+        },
+        // toggle Todo
+        [toggleTodoAsync.fulfilled]: (state, action) => {
+            const {id, isCompleted} = action.payload;
+            const index = state.items.findIndex((item) => item.id === id);
+            state.items[index].isCompleted = isCompleted;
         },
         // destroy Todo
         [destroyTodoAsync.fulfilled]: (state, action) => {
@@ -96,5 +97,5 @@ export const selectFilteredTodos = (state) => {
 
 export const selectActiveFilter = (state) => state.todos.activeFilter;
 
-export const {toggle, destroy, changeActiveFilter, clearCompleted} = todosSlice.actions;
+export const {changeActiveFilter} = todosSlice.actions;
 export default todosSlice.reducer;
